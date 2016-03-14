@@ -4,12 +4,18 @@
     %tr
       %th #
       %th Customer name
-      %th Customer ID
       %th Tracking Number
+      %th Box Shipped
+      %th Actions
   %tbody
   - @cratejoy_orders.each_with_index do |order, index|
     %tr
-      %th{scope: 'row'}= index + 1
-      %td.name= order.name
-      %td.customer_id= order.customer_id
-      %td.tracking_number= link_to order.tracking_number, "https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=#{order.tracking_number}"
+      = form_tag '/order' do
+        %th{scope: 'row'}= index + 1
+        %td.name= order.name
+        = hidden_field_tag 'order[name]', order.name
+        = hidden_field_tag 'order[customer_id]', order.customer_id
+        %td.tracking-number= link_to order.tracking_number, "https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=#{order.tracking_number}"
+        = hidden_field_tag 'order[tracking_number]', order.tracking_number
+        %td.box-shipped= select("order", "shipped_box", Order.boxes.map {|order| [order.name, order.position]})
+        %td.actions= submit_tag "Update", class: 'btn btn-success-outline'
