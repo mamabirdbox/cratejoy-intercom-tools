@@ -1,1 +1,5 @@
 %h2 Welcome home!
+%ul
+  - @cratejoy_orders.each do |order|
+    %li
+      %pre= JSON.pretty_generate order
