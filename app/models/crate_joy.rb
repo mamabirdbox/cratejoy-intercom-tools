@@ -27,11 +27,13 @@ module CrateJoy
           email = json["customer"]["email"]
           customer_id = json["customer_id"]
           cratejoy_id = json["id"]
+          shipment_created_at = DateTime.parse(json["shipped_at"])
           customer = Customer.find_or_create_by(name: name,
                                                 email: email,
                                                cratejoy_id: customer_id)
           Order.find_or_create_by(customer: customer,
                                   tracking_number: tracking_number,
+                                  shipment_created_at: shipment_created_at,
                                   cratejoy_id: cratejoy_id)
         end
       else
