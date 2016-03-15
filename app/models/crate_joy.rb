@@ -16,7 +16,7 @@ module CrateJoy
       end
     end
     def self.network_response
-      resource = ::RestClient::Resource.new "https://api.cratejoy.com/v1/shipments/?shipped_at__le=#{(Time.zone.today.beginning_of_day - 5.days).strftime("%FT%TZ")}", 'mamabirdbox1', 'YQP6xBs687QSUHX7'
+      resource = ::RestClient::Resource.new "https://api.cratejoy.com/v1/shipments/?shipped_at__le=#{(Time.zone.today.beginning_of_day).strftime("%FT%TZ")}", 'mamabirdbox1', 'YQP6xBs687QSUHX7'
       inner_response = JSON.parse resource.get
       build_from_response(inner_response)
       if inner_response["next"]
