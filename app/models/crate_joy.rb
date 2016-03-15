@@ -25,8 +25,8 @@ module CrateJoy
           tracking_number = json["tracking_number"]
           name = json["customer"]["name"]
           customer_id = json["customer_id"]
-          #Order.new(name: name, customer_id: customer_id, tracking_number: tracking_number)
-          Order.new(name, customer_id, tracking_number)
+          cratejoy_id = json["id"]
+          Order.find_or_create_by(name: name, customer_id: customer_id, tracking_number: tracking_number, cratejoy_id: cratejoy_id)
         end
       else
         results = []

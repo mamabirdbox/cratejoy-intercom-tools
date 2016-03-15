@@ -1,2 +1,3 @@
-class Order < Struct.new(:name, :customer_id, :tracking_number)
+class Order < ActiveRecord::Base
+  belongs_to :box
 end
