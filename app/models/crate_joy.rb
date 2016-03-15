@@ -6,7 +6,7 @@ module CrateJoy
 
   class API
     def self.response
-      if Rails.env.development?
+      if Rails.env.development? || ENV['USE_FAKE_DATA'] == 'yes'
         MockResponseData.response
       else
         network_response
