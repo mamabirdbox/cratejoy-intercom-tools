@@ -24,7 +24,6 @@ module CrateJoy
       end
     end
     def self.build_from_response(json)
-      byebug
       if json["results"]
         results = json["results"]
         results = results.map do |json|
