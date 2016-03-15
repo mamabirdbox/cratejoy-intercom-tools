@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160315180925) do
+ActiveRecord::Schema.define(version: 20160315191935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20160315180925) do
 
   create_table "customers", force: :cascade do |t|
     t.string   "intercom_status", default: "unchecked"
-    t.integer  "intercom_id"
+    t.string   "intercom_id"
     t.integer  "cratejoy_id"
     t.string   "name"
     t.string   "email"
