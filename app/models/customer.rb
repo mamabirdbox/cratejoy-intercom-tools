@@ -12,7 +12,13 @@ class Customer < ActiveRecord::Base
     begin
       user = intercom.users.find(user_id: cratejoy_id.to_s)
     rescue ::Intercom::ResourceNotFound
-      update_attributes intercom_status: Customer.states[:not_found]
+      begin
+        user = intercom.users.find(email: email)
+        user.user_id = cratejoy_id.to_s
+        intercom.users.save(user)
+      rescue ::Intercom::ResourceNotFound
+        update_attributes intercom_status: Customer.states[:not_found]
+      end
     end
     if user
       update_attributes({intercom_status: Customer.states[:connected], intercom_id: user.id})
