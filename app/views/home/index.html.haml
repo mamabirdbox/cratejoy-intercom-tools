@@ -7,13 +7,15 @@
       %th Tracking Number
       %th Box Shipped
       %th Actions
+      %th Intercom
   %tbody
   - @cratejoy_orders.each_with_index do |order, index|
     %tr
       = form_for order do
         =hidden_field_tag :id, order.id
         %th{scope: 'row'}= index + 1
-        %td.name= order.name
+        %td.name= order.customer.name
         %td.tracking-number= link_to order.tracking_number, "https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=#{order.tracking_number}"
         %td.box-shipped= collection_select(:order, :box_id, Box.all, :id, :name, {prompt: true, selected: order.box_id})
         %td.actions= submit_tag "Update", class: 'btn btn-success-outline'
+        %td= order.find_intercom_user

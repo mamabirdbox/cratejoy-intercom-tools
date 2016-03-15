@@ -26,6 +26,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'rest-client'
 
+gem 'intercom', "~> 3.4.0"
+
 gem 'haml'
 gem "haml-rails", "~> 0.9"
 gem 'bootstrap', '~> 4.0.0.alpha3'

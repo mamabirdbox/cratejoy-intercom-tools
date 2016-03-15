@@ -24,9 +24,15 @@ module CrateJoy
         results = results.map do |json|
           tracking_number = json["tracking_number"]
           name = json["customer"]["name"]
+          email = json["customer"]["email"]
           customer_id = json["customer_id"]
           cratejoy_id = json["id"]
-          Order.find_or_create_by(name: name, customer_id: customer_id, tracking_number: tracking_number, cratejoy_id: cratejoy_id)
+          customer = Customer.find_or_create_by(name: name,
+                                                email: email,
+                                               cratejoy_id: customer_id)
+          Order.find_or_create_by(customer: customer,
+                                  tracking_number: tracking_number,
+                                  cratejoy_id: cratejoy_id)
         end
       else
         results = []

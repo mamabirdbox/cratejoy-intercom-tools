@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  orders: 
+  intercom_status: false
+  intercom_id: 1
+  cratejoy_id: 1
+  name: MyString
+  email: MyString
+
+two:
+  orders: 
+  intercom_status: false
+  intercom_id: 1
+  cratejoy_id: 1
+  name: MyString
+  email: MyString
