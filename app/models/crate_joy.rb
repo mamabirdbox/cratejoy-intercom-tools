@@ -6,15 +6,29 @@ module CrateJoy
 
   class API
     def self.response
-      if Rails.env.development? || ENV['USE_FAKE_DATA'] == 'yes'
+      if !Rails.env.development? || ENV['USE_FAKE_DATA'] == 'yes'
         MockResponseData.response
       else
         network_response
       end
     end
+    def self.inner_get(url, curr)
+      resource = ::RestClient::Resource.new "https://api.cratejoy.com/v1/shipments/#{url}", 'mamabirdbox1', 'YQP6xBs687QSUHX7'
+      inner_response = JSON.parse resource.get
+      if inner_response["next"]
+        curr << inner_get(inner_response["next"], curr)
+      else
+        inner_response["results"]
+      end
+    end
     def self.network_response
-      resource = ::RestClient::Resource.new "https://api.cratejoy.com/v1/shipments/?shipped_at__ge=#{Time.zone.today.beginning_of_day.strftime("%FT%TZ")}", 'mamabirdbox1', 'YQP6xBs687QSUHX7'
-      JSON.parse resource.get
+      resource = ::RestClient::Resource.new "https://api.cratejoy.com/v1/shipments/?shipped_at__le=#{(Time.zone.today.beginning_of_day).strftime("%FT%TZ")}", 'mamabirdbox1', 'YQP6xBs687QSUHX7'
+      inner_response = JSON.parse resource.get
+      if inner_response["next"]
+        inner_response["results"].concat(inner_get(inner_response["next"], inner_response["results"]))
+        inner_response["results"].flatten!
+      end
+      inner_response
     end
     def self.mock_response
     end

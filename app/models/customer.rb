@@ -8,6 +8,7 @@ class Customer < ActiveRecord::Base
 
   def fetch_intercom
     result = :error
+    user = find_intercom_user
     if user
       update_attributes({intercom_status: Customer.states[:connected], intercom_id: user.id})
       result = :ok
