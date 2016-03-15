@@ -1,7 +1,7 @@
 module CrateJoy
   class API
     def self.response
-      if !Rails.env.development?
+      if Rails.env.development?
         MockResponseData.response
       else
         network_response
