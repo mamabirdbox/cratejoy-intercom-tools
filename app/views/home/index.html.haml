@@ -17,5 +17,5 @@
         = hidden_field_tag 'order[customer_id]', order.customer_id
         %td.tracking-number= link_to order.tracking_number, "https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=#{order.tracking_number}"
         = hidden_field_tag 'order[tracking_number]', order.tracking_number
-        %td.box-shipped= select("order", "shipped_box", Order.boxes.map {|order| [order.name, order.position]})
+        %td.box-shipped= select("order", "shipped_box", Box.all.map {|box| [box.name, box.position]})
         %td.actions= submit_tag "Update", class: 'btn btn-success-outline'
