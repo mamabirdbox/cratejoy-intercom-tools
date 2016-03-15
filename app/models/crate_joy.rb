@@ -7,29 +7,25 @@ module CrateJoy
         network_response
       end
     end
-    def self.inner_get(url, curr)
+    def self.inner_get(url)
       resource = ::RestClient::Resource.new "https://api.cratejoy.com/v1/shipments/#{url}", 'mamabirdbox1', 'YQP6xBs687QSUHX7'
       inner_response = JSON.parse resource.get
       if inner_response["next"]
-        curr << inner_get(inner_response["next"], curr)
-      else
-        inner_response["results"]
+        inner_get(inner_response["next"])
       end
+        build_from_response(inner_response["results"])
     end
     def self.network_response
       resource = ::RestClient::Resource.new "https://api.cratejoy.com/v1/shipments/?shipped_at__le=#{(Time.zone.today.beginning_of_day).strftime("%FT%TZ")}", 'mamabirdbox1', 'YQP6xBs687QSUHX7'
       inner_response = JSON.parse resource.get
       if inner_response["next"]
-        inner_response["results"].concat(inner_get(inner_response["next"], inner_response["results"]))
-        inner_response["results"].flatten!
+        inner_get(inner_response["next"])
       end
-      inner_response
+      build_from_response(inner_response)
     end
-    def self.mock_response
-    end
-    def self.build_orders
-      if response["results"]
-        results = response["results"]
+    def self.build_from_response(json)
+      if json["results"]
+        results = json["results"]
         results = results.map do |json|
           tracking_number = json["tracking_number"]
           name = json["customer"]["name"]
@@ -46,10 +42,10 @@ module CrateJoy
                                   cratejoy_id: cratejoy_id)
           puts "Order Saved: #{shipment_created_at}"
         end
-      else
-        results = []
       end
-      results
+    end
+    def self.build_orders
+      build_from_response(response)
     end
   end
 end
