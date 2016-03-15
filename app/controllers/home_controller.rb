@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @cratejoy_orders = CrateJoy.orders
+    @cratejoy_orders = Order.all
   end
 end

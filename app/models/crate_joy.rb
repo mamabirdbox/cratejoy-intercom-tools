@@ -1,12 +1,7 @@
 module CrateJoy
-
-  def self.orders
-    API.orders
-  end
-
   class API
     def self.response
-      if Rails.env.development? || ENV['USE_FAKE_DATA'] == 'yes'
+      if Rails.env.development?
         MockResponseData.response
       else
         network_response
@@ -32,7 +27,7 @@ module CrateJoy
     end
     def self.mock_response
     end
-    def self.orders
+    def self.build_orders
       if response["results"]
         results = response["results"]
         results = results.map do |json|
@@ -49,6 +44,7 @@ module CrateJoy
                                   tracking_number: tracking_number,
                                   shipment_created_at: shipment_created_at,
                                   cratejoy_id: cratejoy_id)
+          puts "Order Saved: #{shipment_created_at}"
         end
       else
         results = []
