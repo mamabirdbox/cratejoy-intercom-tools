@@ -1,11 +1,21 @@
 class OrderController < ApplicationController
   def update
+    puts params
     @order = Order.find(params[:id])
     if @order
       box = Box.find(params[:order][:box_id])
-      @order.update_attributes(box: box)
-      @order.update_intercom(box)
+      local_ok = @order.update_attributes(box: box)
+      intercom_ok = @order.update_intercom(box)
+      if local_ok && intercom_ok
+        state = :ok
+      else
+        state = :error
+      end
+      state = :ok
     end
-    redirect_to root_path
+    respond_to do |format|
+      format.html { redirect_to root_path}
+      format.json { render json: {status: state}.to_json }
+    end
   end
 end
