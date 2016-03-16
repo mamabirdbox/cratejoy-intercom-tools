@@ -32,25 +32,27 @@ module CrateJoy
       if json["results"]
         results = json["results"]
         results = results.map do |json|
-          tracking_number = json["tracking_number"]
-          name = json["customer"]["name"]
-          email = json["customer"]["email"]
-          customer_id = json["customer_id"]
-          cratejoy_id = json["id"]
-          shipment_created_at = DateTime.parse(json["shipped_at"])
-          customer = Customer.find_or_create_by(name: name,
-                                                email: email,
-                                               cratejoy_id: customer_id)
-          Order.find_or_create_by(customer: customer,
-                                  tracking_number: tracking_number,
-                                  shipment_created_at: shipment_created_at,
-                                  cratejoy_id: cratejoy_id)
-          puts "Order Saved: #{shipment_created_at}"
+          order_from_hash(json)
         end
       end
     end
     def self.build_orders
       build_from_response(response)
+    end
+    def self.order_from_hash(hash)
+      tracking_number = hash["tracking_number"]
+      name = hash["customer"]["name"]
+      email = hash["customer"]["email"]
+      customer_id = hash["customer_id"] || hash["customer"]["id"]
+      cratejoy_id = hash["id"]
+      shipment_created_at = DateTime.parse(hash["shipped_at"])
+      customer = Customer.find_or_create_by(name: name,
+                                            email: email,
+                                           cratejoy_id: customer_id)
+      Order.find_or_create_by(customer: customer,
+                              tracking_number: tracking_number,
+                              shipment_created_at: shipment_created_at,
+                              cratejoy_id: cratejoy_id)
     end
   end
 end

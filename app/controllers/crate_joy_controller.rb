@@ -1,7 +1,7 @@
 class CrateJoyController < ApplicationController
   skip_before_filter :verify_authenticity_token
   def new
-    ParamsForDaveMailer.test_email(params).deliver_now
+    CrateJoy::API.order_from_hash(params["_json"])
     render nothing: true
   end
 end
