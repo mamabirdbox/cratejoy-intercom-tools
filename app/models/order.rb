@@ -3,7 +3,7 @@ class Order < ActiveRecord::Base
   belongs_to :customer
 
   def self.with_updates_needed
-    where(box: nil).order(:shipment_created_at)
+    where(box: nil).order(:customer_id)
   end
 
   def update_intercom(box)
