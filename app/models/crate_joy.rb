@@ -45,7 +45,14 @@ module CrateJoy
       email = hash["customer"]["email"]
       customer_id = hash["customer_id"] || hash["customer"]["id"]
       cratejoy_id = hash["id"]
-      shipment_created_at = DateTime.parse(hash["shipped_at"])
+      shipped_at = hash["shipped_at"]
+      if shipped_at.is_a?(Integer)
+        shipment_created_at = shipped_at.to_s.first(10).to_i
+        shipment_created_at = Time.at(shipment_created_at)
+        shipment_created_at = DateTime.parse(shipment_created_at.to_s)
+      else
+        shipment_created_at = DateTime.parse(shipped_at)
+      end
       customer = Customer.find_or_create_by(name: name,
                                             email: email,
                                            cratejoy_id: customer_id)
