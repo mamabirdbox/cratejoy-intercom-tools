@@ -23,6 +23,11 @@ module CrateJoy
         inner_get(inner_response["next"])
       end
     end
+    def self.build_today
+      resource = ::RestClient::Resource.new "https://api.cratejoy.com/v1/shipments/?shipped_at__ge=#{(Time.zone.today.beginning_of_day).strftime("%FT%TZ")}", 'mamabirdbox1', 'YQP6xBs687QSUHX7'
+      response = JSON.parse resource.get
+      build_from_response(response)
+    end
     def self.build_from_response(json)
       if json["results"]
         results = json["results"]
