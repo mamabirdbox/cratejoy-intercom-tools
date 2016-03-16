@@ -13,6 +13,6 @@ class Order < ActiveRecord::Base
     intercom_user.custom_attributes["shipped_#{underscored_box_name}_tracking"] = tracking_number
     intercom.users.save(intercom_user)
 
-    intercom.notes.create(body: "<p> Shipped #{box.name} on #{Date.today}</p>", id: customer.intercom_id)
+    intercom.notes.create(body: "<p> Shipped #{box.name} on #{Date.today}</p>", email: customer.email)
   end
 end
