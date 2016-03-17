@@ -27,6 +27,7 @@ gem 'rest-client'
 
 gem 'intercom', "~> 3.4.0"
 
+gem 'devise'
 gem 'haml'
 gem "haml-rails", "~> 0.9"
 gem 'bootstrap', '~> 4.0.0.alpha3'
