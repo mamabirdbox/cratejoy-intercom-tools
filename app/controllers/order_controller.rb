@@ -13,7 +13,6 @@ class OrderController < ApplicationController
     else
       state = :error
     end
-    state = :ok
     respond_to do |format|
       format.html { redirect_to root_path}
       format.json { render json: {status: state}.to_json }
