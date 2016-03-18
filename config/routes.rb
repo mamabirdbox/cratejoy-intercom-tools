@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   post '/order', to: 'order#update'
   patch '/customer/:id/intercom', to: 'customer#retry_intercom', as: 'customer_retry'
   post '/webhooks/cratejoy/new', to: 'crate_joy#new'
+  get '/order/update/:date', to: 'order#manual_update', as: 'order_manual_update'
 end

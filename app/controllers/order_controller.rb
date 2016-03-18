@@ -18,4 +18,9 @@ class OrderController < ApplicationController
       format.json { render json: {status: state}.to_json }
     end
   end
+
+  def manual_update
+    CrateJoy::API.build_from_date(params[:date])
+    redirect_to root_url
+  end
 end

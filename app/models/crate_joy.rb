@@ -23,6 +23,22 @@ module CrateJoy
         inner_get(inner_response["next"])
       end
     end
+    def self.build_from_date(date)
+      date_array = date.split('-')
+      current_year = Date.today.year
+      ordered_date_string = [current_year, date_array[0], date_array[1]]
+      date_object = DateTime.parse ordered_date_string.join('-')
+      if date_object.future?
+        date_object = date_object - 1.year
+      end
+      resource = ::RestClient::Resource.new "https://api.cratejoy.com/v1/shipments/?shipped_at__ge=#{date_object.strftime("%FT%TZ")}", 'mamabirdbox1', 'YQP6xBs687QSUHX7'
+      inner_response = JSON.parse resource.get
+      build_from_response(inner_response)
+      if inner_response["next"]
+        inner_get(inner_response["next"])
+      end
+    end
+
     def self.build_today
       resource = ::RestClient::Resource.new "https://api.cratejoy.com/v1/shipments/?shipped_at__ge=#{(Time.zone.today.beginning_of_day - 1.day).strftime("%FT%TZ")}", 'mamabirdbox1', 'YQP6xBs687QSUHX7'
       response = JSON.parse resource.get
