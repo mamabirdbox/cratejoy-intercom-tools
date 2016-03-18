@@ -24,7 +24,7 @@ module CrateJoy
       end
     end
     def self.build_today
-      resource = ::RestClient::Resource.new "https://api.cratejoy.com/v1/shipments/?shipped_at__ge=#{(Time.zone.today.beginning_of_day - 1).strftime("%FT%TZ")}", 'mamabirdbox1', 'YQP6xBs687QSUHX7'
+      resource = ::RestClient::Resource.new "https://api.cratejoy.com/v1/shipments/?shipped_at__ge=#{(Time.zone.today.beginning_of_day - 1.day).strftime("%FT%TZ")}", 'mamabirdbox1', 'YQP6xBs687QSUHX7'
       response = JSON.parse resource.get
       build_from_response(response)
     end
