@@ -4,7 +4,7 @@ class OrderController < ApplicationController
     if @order
      box = Box.find(params[:order][:box_id])
      local_ok = @order.update_attributes(box: box)
-     intercom_ok = @order.update_intercom(box)
+     intercom_ok = @order.update_intercom(box, current_user)
      if local_ok && intercom_ok
        state = :ok
      else

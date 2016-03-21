@@ -6,7 +6,7 @@ class Order < ActiveRecord::Base
     where(box: nil).order(:customer_id)
   end
 
-  def update_intercom(box)
+  def update_intercom(box, current_user)
     intercom = ::Intercom::Client.new(app_id: 'doj5flma', api_key: 'e5feac8091f53c4f97b2dab02a6a2dee69db63ff')
     underscored_box_name = box.name.split(' ').join('_')
     timestamp = shipment_created_at.to_time.to_i.to_i
