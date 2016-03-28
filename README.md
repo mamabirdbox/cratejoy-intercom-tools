@@ -9,9 +9,13 @@ The tool would let us search for a user by name, email or UserID and then pull t
 The most commonly edited data will be:
 
 -[ ] Baby Due Date ("babyduedate" custom attribute)
+
 -[ ] First Name
+
 -[ ] Last Name
+
 -[ ] Email Address
+
 -[ ] User Id
 
 ## Tool 3: Notes Sync
