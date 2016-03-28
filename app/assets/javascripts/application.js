@@ -15,3 +15,4 @@
 //= require tether
 //= require bootstrap-sprockets
 //= require home
+//= require customer

@@ -1,0 +1,10 @@
+class IntercomCustomer < Struct.new(:due_date, :name, :email, :user_id)
+
+  def initialize(intercom_hash)
+    self.due_date = intercom_hash["babyduedate"]
+    self.name = intercom_hash["name"]
+    self.email = intercom_hash["email"]
+    self.user_id = intercom_hash["user_id"]
+  end
+
+end
