@@ -7,6 +7,7 @@ This is a tool to update some common user data that we often will get via email 
 The tool would let us search for a user by name, email or UserID and then pull the current details on that user in from Intercom to the dashboard. We then can manually update details and submit the data back to Intercom.
 
 The most commonly edited data will be:
+
 -[ ] Baby Due Date ("babyduedate" custom attribute)
 -[ ] First Name
 -[ ] Last Name
