@@ -1,6 +1,9 @@
 $brand-primary:             #186680 !default;
 $brand-success:             #188055 !default;
 @import "bootstrap";
+@import "jquery-ui";
+@import "jquery-ui-structure";
+@import "jquery-ui-theme";
 @import "home";
 @import "font-awesome/font-awesome";
 .m-t-5 {

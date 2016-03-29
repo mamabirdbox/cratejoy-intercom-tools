@@ -27,6 +27,7 @@ gem 'rest-client'
 
 gem 'intercom', "~> 3.4.0"
 
+gem 'jquery-ui-rails'
 gem 'devise'
 gem 'haml'
 gem "haml-rails", "~> 0.9"

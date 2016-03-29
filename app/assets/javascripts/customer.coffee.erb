@@ -2,15 +2,16 @@ $ ->
   $('#search-box').bind('enterKey', (e) ->
     $.post("/customer/search.json", { "query": $('#search-box').val()}, (data) ->
       if data
+        date = (data.due_date * 1000)
         $('.results-container').html('')
         customer_info_div = $('<div>')
-        customer_info_div.append("<span>Customer name:</span><input class='form-control' type='text', value='#{data.name}' />")
+        customer_info_div.append("<span>Customer name:</span><input id='name_input' class='form-control' type='text', value='#{data.name}' />")
         customer_info_div.append("<br/>")
-        customer_info_div.append("<span>Customer email:</span><input class='form-control' type='text', value='#{data.email}' />")
+        customer_info_div.append("<span>Customer email:</span><input id='email_input' class='form-control' type='text', value='#{data.email}' />")
         customer_info_div.append("<br/>")
-        customer_info_div.append("<span>Customer due date:</span><input class='form-control' type='text', value='#{data.due_date}' />")
+        customer_info_div.append("<span>Customer due date:</span><input id='due_date_input' class='form-control' type='text', value='#{moment(date).format('MM/DD/YYYY')}' />")
         customer_info_div.append("<br/>")
-        customer_info_div.append("<span>Customer user id:</span><input class='form-control' type='text', value='#{data.user_id}' />")
+        customer_info_div.append("<span>Customer user id:</span><input id='user_id_input' class='form-control' type='text', value='#{data.user_id}' />")
         $('.results-container').append customer_info_div
 
     )
