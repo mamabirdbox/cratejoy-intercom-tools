@@ -12,6 +12,7 @@
       %th Box Shipped
       %th Actions
       %th Intercom Status
+      %th Note
   %tbody
   - @cratejoy_orders.each_with_index do |order, index|
     %tr
@@ -35,4 +36,6 @@
             %span.label.label-success Connected!
           -else
             = "CJ ID: " + order.customer.cratejoy_id.to_s
-
+        %td
+          -if order.note?
+            %i.fa.fa-comment{data: {toggle: 'popover', content: "#{order.note}", trigger: 'hover'}, title: "Note" }

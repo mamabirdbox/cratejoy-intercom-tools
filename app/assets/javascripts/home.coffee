@@ -27,4 +27,5 @@ $ ->
         failureActions($button)
     .error (json) ->
       failureActions($button)
+  $('[data-toggle="popover"]').popover()
 

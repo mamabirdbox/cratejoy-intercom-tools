@@ -62,6 +62,7 @@ module CrateJoy
       customer_id = hash["customer_id"] || hash["customer"]["id"]
       cratejoy_id = hash["id"]
       shipped_at = hash["shipped_at"]
+      note = hash["fulfillments"].first["order"]["note"]
       if shipped_at.is_a?(Integer)
         shipment_created_at = shipped_at.to_s.first(10).to_i
         shipment_created_at = Time.at(shipment_created_at)
@@ -75,6 +76,7 @@ module CrateJoy
       Order.find_or_create_by(customer: customer,
                               tracking_number: tracking_number,
                               shipment_created_at: shipment_created_at,
+                              note: note,
                               cratejoy_id: cratejoy_id)
     end
   end
