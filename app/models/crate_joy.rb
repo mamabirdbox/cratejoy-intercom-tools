@@ -62,7 +62,11 @@ module CrateJoy
       customer_id = hash["customer_id"] || hash["customer"]["id"]
       cratejoy_id = hash["id"]
       shipped_at = hash["shipped_at"]
-      note = hash["fulfillments"].first["order"]["note"]
+      if hash["fulfillments"].first["order"]
+        note = hash["fulfillments"].first["order"]["subscriptions"].first["note"]
+      else
+        note = nil
+      end
       if shipped_at.is_a?(Integer)
         shipment_created_at = shipped_at.to_s.first(10).to_i
         shipment_created_at = Time.at(shipment_created_at)
