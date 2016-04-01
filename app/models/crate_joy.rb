@@ -7,6 +7,11 @@ module CrateJoy
         network_response
       end
     end
+    def self.order_from_id(id)
+      resource = ::RestClient::Resource.new "https://api.cratejoy.com/v1/shipments/#{id}", 'mamabirdbox1', 'YQP6xBs687QSUHX7'
+      response = JSON.parse resource.get
+      order_from_hash(response)
+    end
     def self.inner_get(url)
       resource = ::RestClient::Resource.new "https://api.cratejoy.com/v1/shipments/#{url}", 'mamabirdbox1', 'YQP6xBs687QSUHX7'
       inner_response = JSON.parse resource.get
