@@ -67,7 +67,7 @@ module CrateJoy
       customer_id = hash["customer_id"] || hash["customer"]["id"]
       cratejoy_id = hash["id"]
       shipped_at = hash["shipped_at"]
-      if hash["fulfillments"].first["order"]
+      if hash["fulfillments"].first["order"] && hash["fulfillments"].first["order"]["subscriptions"] && hash["fulfillments"].first["order"]["subscriptions"].first
         note = hash["fulfillments"].first["order"]["subscriptions"].first["note"]
       else
         note = nil
