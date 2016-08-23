@@ -3,7 +3,6 @@ class CustomerController < ApplicationController
   def index
   end
   def update
-    byebug
     customer_hash = params[:customer]
     intercom = ::Intercom::Client.new(app_id: 'doj5flma', api_key: 'e5feac8091f53c4f97b2dab02a6a2dee69db63ff')
     user = intercom.users.find(id: customer_hash[:id])
